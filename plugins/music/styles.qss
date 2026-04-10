@@ -1,0 +1,49 @@
+/* ============================================
+   Стили для плагина "Музыка"
+   ============================================ */
+
+/* Название трека */
+PluginWidget QLabel#trackLabel {
+    color: #eee;
+    font-size: 12px;
+}
+
+/* Полоса прогресса */
+PluginWidget QSlider::groove:horizontal {
+    height: 4px;
+    background: #444;
+    border-radius: 2px;
+}
+
+PluginWidget QSlider::handle:horizontal {
+    width: 12px;
+    margin: -4px 0;
+    background: #6496FF;
+    border-radius: 6px;
+}
+
+PluginWidget QSlider::sub-page:horizontal {
+    background: #6496FF;
+    border-radius: 2px;
+}
+
+/* Кнопки управления */
+PluginWidget QPushButton#prevBtn,
+PluginWidget QPushButton#nextBtn {
+    min-width: 36px;
+    min-height: 32px;
+    padding: 4px;
+}
+
+PluginWidget QPushButton#playBtn {
+    min-width: 48px;
+    min-height: 32px;
+    background-color: #6496FF;
+    color: white;
+    border: none;
+    font-size: 14px;
+}
+
+PluginWidget QPushButton#playBtn:hover {
+    background-color: #7aa6ff;
+}

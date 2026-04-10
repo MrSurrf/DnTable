@@ -1,6 +1,6 @@
 """
 Виджет плагина "Карта" - просмотр карт D&D
-Слева превью карты, справа список карт с навигацией
+Стили определены в styles.qss
 """
 
 from PySide6.QtWidgets import (
@@ -19,18 +19,10 @@ class MapPreviewWidget(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.current_map_path = None
-        
         self._setup_ui()
     
     def _setup_ui(self):
         self.setFrameStyle(QFrame.StyledPanel | QFrame.Sunken)
-        self.setStyleSheet("""
-            MapPreviewWidget {
-                background-color: #1a1a1a;
-                border: 2px solid #444;
-                border-radius: 8px;
-            }
-        """)
         
         layout = QVBoxLayout(self)
         layout.setContentsMargins(8, 8, 8, 8)
@@ -38,19 +30,14 @@ class MapPreviewWidget(QFrame):
         
         # Заголовок с названием карты
         self.title_label = QLabel("🗺️ Выберите карту")
+        self.title_label.setObjectName("title_label")
         self.title_label.setAlignment(Qt.AlignCenter)
-        self.title_label.setStyleSheet("font-weight: bold; color: #eee; font-size: 12px;")
         layout.addWidget(self.title_label)
         
         # Область отображения карты
         self.image_label = QLabel()
+        self.image_label.setObjectName("image_label")
         self.image_label.setAlignment(Qt.AlignCenter)
-        self.image_label.setStyleSheet("""
-            background-color: #252525;
-            border: 2px dashed #555;
-            border-radius: 8px;
-            color: #666;
-        """)
         self.image_label.setMinimumSize(180, 180)
         self.image_label.setText("🗺️\nНет карты")
         self.image_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -58,8 +45,8 @@ class MapPreviewWidget(QFrame):
         
         # Инфо о размере
         self.info_label = QLabel("")
+        self.info_label.setObjectName("info_label")
         self.info_label.setAlignment(Qt.AlignCenter)
-        self.info_label.setStyleSheet("color: #888; font-size: 10px;")
         layout.addWidget(self.info_label)
     
     def set_map(self, map_path: str, map_name: str):
@@ -68,6 +55,7 @@ class MapPreviewWidget(QFrame):
         
         if not map_path or not os.path.exists(map_path):
             self.image_label.setText("🗺️\nКарта не найдена")
+            self.image_label.setProperty("hasImage", "false")
             self.title_label.setText("🗺️ Карта")
             self.info_label.setText("")
             return
@@ -76,6 +64,7 @@ class MapPreviewWidget(QFrame):
         pixmap = QPixmap(map_path)
         if pixmap.isNull():
             self.image_label.setText("❌\nОшибка загрузки")
+            self.image_label.setProperty("hasImage", "false")
             return
         
         # Масштабируем под размер виджета
@@ -87,7 +76,8 @@ class MapPreviewWidget(QFrame):
         )
         
         self.image_label.setPixmap(scaled)
-        self.image_label.setStyleSheet("background-color: #1a1a1a; border-radius: 8px;")
+        self.image_label.setText("")
+        self.image_label.setProperty("hasImage", "true")
         self.title_label.setText(f"🗺️ {map_name}")
         
         # Инфо о размере файла
@@ -98,7 +88,6 @@ class MapPreviewWidget(QFrame):
         """При изменении размера пересчитываем масштаб"""
         super().resizeEvent(event)
         if self.current_map_path and os.path.exists(self.current_map_path):
-            # Перезагружаем текущую карту с новым размером
             pixmap = QPixmap(self.current_map_path)
             if not pixmap.isNull():
                 available_size = self.image_label.size() - QtCore.QSize(20, 20)
@@ -135,50 +124,18 @@ class PluginWidget(QWidget):
         nav_layout = QHBoxLayout()
         
         self.prev_btn = QPushButton("◀")
+        self.prev_btn.setObjectName("navButton")
         self.prev_btn.setFixedSize(32, 32)
         self.prev_btn.setToolTip("Предыдущая карта")
-        self.prev_btn.setStyleSheet("""
-            QPushButton {
-                background-color: #3d3d3d;
-                color: #eee;
-                border: 1px solid #555;
-                border-radius: 4px;
-                font-size: 14px;
-                font-weight: bold;
-            }
-            QPushButton:hover {
-                background-color: #6496FF;
-            }
-            QPushButton:disabled {
-                background-color: #2d2d2d;
-                color: #555;
-            }
-        """)
         self.prev_btn.clicked.connect(self._prev_map)
         nav_layout.addWidget(self.prev_btn)
         
         nav_layout.addStretch()
         
         self.next_btn = QPushButton("▶")
+        self.next_btn.setObjectName("navButton")
         self.next_btn.setFixedSize(32, 32)
         self.next_btn.setToolTip("Следующая карта")
-        self.next_btn.setStyleSheet("""
-            QPushButton {
-                background-color: #3d3d3d;
-                color: #eee;
-                border: 1px solid #555;
-                border-radius: 4px;
-                font-size: 14px;
-                font-weight: bold;
-            }
-            QPushButton:hover {
-                background-color: #6496FF;
-            }
-            QPushButton:disabled {
-                background-color: #2d2d2d;
-                color: #555;
-            }
-        """)
         self.next_btn.clicked.connect(self._next_map)
         nav_layout.addWidget(self.next_btn)
         
@@ -198,67 +155,30 @@ class PluginWidget(QWidget):
         
         # Заголовок
         list_header = QLabel("📂 Карты")
-        list_header.setStyleSheet("font-weight: bold; color: #6496FF; font-size: 11px;")
+        list_header.setObjectName("list_header")
         right_layout.addWidget(list_header)
         
         # Комбобокс для выбора карты
         self.map_combo = QComboBox()
-        self.map_combo.setStyleSheet("""
-            QComboBox {
-                background-color: #2d2d2d;
-                color: #eee;
-                border: 1px solid #444;
-                border-radius: 6px;
-                padding: 6px;
-                font-size: 11px;
-            }
-            QComboBox:hover {
-                border-color: #555;
-            }
-            QComboBox::drop-down {
-                border: none;
-                width: 24px;
-            }
-            QComboBox::down-arrow {
-                image: none;
-                border-left: 5px solid transparent;
-                border-right: 5px solid transparent;
-                border-top: 5px solid #eee;
-                margin-right: 8px;
-            }
-            QComboBox QAbstractItemView {
-                background-color: #2d2d2d;
-                color: #eee;
-                border: 1px solid #444;
-                selection-background-color: #6496FF;
-                selection-color: white;
-            }
-        """)
         self.map_combo.currentIndexChanged.connect(self._on_map_selected)
         right_layout.addWidget(self.map_combo)
         
         # Список карт (дополнительно)
         self.maps_list_label = QLabel("Доступные карты:")
-        self.maps_list_label.setStyleSheet("color: #888; font-size: 10px; margin-top: 8px;")
+        self.maps_list_label.setObjectName("maps_list_label")
         right_layout.addWidget(self.maps_list_label)
         
         # Текстовый список карт
         self.maps_list = QLabel("Загрузка...")
-        self.maps_list.setStyleSheet("""
-            color: #aaa;
-            font-size: 10px;
-            background-color: #252525;
-            border-radius: 6px;
-            padding: 8px;
-        """)
+        self.maps_list.setObjectName("maps_list")
         self.maps_list.setAlignment(Qt.AlignTop | Qt.AlignLeft)
         self.maps_list.setWordWrap(True)
         self.maps_list.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         right_layout.addWidget(self.maps_list, 1)
         
         # Инфо о папке
-        folder_info = QLabel(f"📁 Папка: maps/")
-        folder_info.setStyleSheet("color: #666; font-size: 9px;")
+        folder_info = QLabel("📁 Папка: maps/")
+        folder_info.setObjectName("folder_info")
         folder_info.setWordWrap(True)
         right_layout.addWidget(folder_info)
         
@@ -285,15 +205,12 @@ class PluginWidget(QWidget):
         
         if self.map_files:
             for filename in self.map_files:
-                # Имя без расширения для отображения
                 display_name = os.path.splitext(filename)[0]
                 self.map_combo.addItem(f"🗺️ {display_name}", filename)
             
-            # Обновляем текстовый список
             maps_text = "\n".join([f"• {os.path.splitext(f)[0]}" for f in self.map_files])
             self.maps_list.setText(maps_text)
             
-            # Выбираем первую карту
             self.current_index = 0
             self._update_navigation()
         else:
@@ -331,5 +248,3 @@ class PluginWidget(QWidget):
         """Обновить состояние кнопок навигации"""
         self.prev_btn.setEnabled(self.current_index > 0)
         self.next_btn.setEnabled(self.current_index < len(self.map_files) - 1)
-
-

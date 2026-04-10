@@ -17,29 +17,19 @@ class PluginWidget(QWidget):
         
         # Заголовок
         header = QLabel("📝 Заметки")
-        header.setStyleSheet("font-weight: bold; color: #eee;")
+        header.setObjectName("header")
         layout.addWidget(header)
         
         # Текстовое поле
         self.text = QTextEdit()
+        self.text.setObjectName("textEdit")
         self.text.setPlaceholderText("Введите заметки здесь...")
-        self.text.setStyleSheet("""
-            QTextEdit {
-                background-color: #252525;
-                border: 1px solid #444;
-                border-radius: 6px;
-                color: #eee;
-                padding: 8px;
-                font-family: Segoe UI;
-                font-size: 11px;
-            }
-        """)
         layout.addWidget(self.text, 1)
         
         # Счётчик символов
         self.counter = QLabel("0 / 5000")
+        self.counter.setObjectName("counter")
         self.counter.setAlignment(Qt.AlignRight)
-        self.counter.setStyleSheet("color: #666; font-size: 10px;")
         layout.addWidget(self.counter)
         
         self.text.textChanged.connect(self._update_counter)
@@ -47,10 +37,16 @@ class PluginWidget(QWidget):
     def _update_counter(self):
         length = len(self.text.toPlainText())
         self.counter.setText(f"{length} / 5000")
+        
+        # Используем свойство для изменения цвета через QSS
         if length > 4500:
-            self.counter.setStyleSheet("color: #FF6464; font-size: 10px;")
+            self.counter.setProperty("almostFull", "true")
         else:
-            self.counter.setStyleSheet("color: #666; font-size: 10px;")
+            self.counter.setProperty("almostFull", "false")
+        
+        # Обновляем стиль
+        self.counter.style().unpolish(self.counter)
+        self.counter.style().polish(self.counter)
     
     def get_text(self) -> str:
         return self.text.toPlainText()

@@ -1,11 +1,23 @@
 /* ============================================
-   Стили для Tile Dashboard
-   Можно редактировать без изменения кода Python
+   ГЛОБАЛЬНЫЕ СТИЛИ Tile Dashboard
+   
+   Здесь только базовые стили приложения:
+   - Главное окно
+   - Меню
+   - Общие классы кнопок, списков и т.д.
+   
+   Стили конкретных плагинов - в их папках:
+   plugins/{plugin_name}/styles.qss
    ============================================ */
 
-/* ==================== ГЛОВАЛЬНЫЕ ==================== */
+/* ==================== ГЛОБАЛЬНЫЕ ==================== */
 QMainWindow {
     background-color: #1a1a1a;
+}
+
+QWidget {
+    font-family: Segoe UI;
+    font-size: 11px;
 }
 
 /* ==================== МЕНЮ ==================== */
@@ -13,7 +25,6 @@ QMenuBar {
     background-color: #2d2d2d;
     color: #eeeeee;
     padding: 4px;
-    font-family: Segoe UI;
     font-size: 12px;
 }
 
@@ -36,7 +47,6 @@ QMenu {
     color: #eeeeee;
     border: 1px solid #444444;
     padding: 4px;
-    font-family: Segoe UI;
     font-size: 11px;
 }
 
@@ -55,7 +65,8 @@ QMenu::separator {
     margin: 4px 8px;
 }
 
-/* ==================== TILE WIDGET ==================== */
+/* ==================== TILE WIDGET (контейнер) ==================== */
+/* Это базовые стили для контейнера плагинов */
 TileWidget {
     background-color: #2d2d2d;
     border-radius: 12px;
@@ -66,7 +77,6 @@ TileWidget:hover {
     border: 1px solid #666666;
 }
 
-/* Заголовок виджета */
 TileWidget QFrame#header {
     background-color: #3d3d3d;
     border-top-left-radius: 10px;
@@ -74,15 +84,12 @@ TileWidget QFrame#header {
     border-bottom: 1px solid #555555;
 }
 
-/* Заголовок - текст */
 TileWidget QLabel#titleLabel {
     color: #eeeeee;
-    font-family: Segoe UI;
     font-size: 12px;
     font-weight: bold;
 }
 
-/* Кнопка закрыть */
 TileWidget QLabel#closeBtn {
     font-size: 16px;
     font-weight: bold;
@@ -94,42 +101,150 @@ TileWidget QLabel#closeBtn:hover {
     color: #FF6464;
 }
 
-/* Контент виджета */
-TileWidget QLabel#contentLabel {
-    color: #aaaaaa;
-    font-family: Segoe UI;
-    font-size: 11px;
-}
+/* ==================== БАЗОВЫЕ ЭЛЕМЕНТЫ УПРАВЛЕНИЯ ==================== */
 
-/* Иконка в виджете */
-TileWidget QLabel#iconLabel {
+/* Кнопки - базовый стиль */
+QPushButton {
+    background-color: #3d3d3d;
     color: #eeeeee;
+    border: 1px solid #555555;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: bold;
 }
 
-/* Подзаголовок */
-TileWidget QLabel#subtitleLabel {
-    color: #6496FF;
-    font-family: Segoe UI;
-    font-size: 12px;
+QPushButton:hover {
+    background-color: #4d4d4d;
+    border-color: #666666;
 }
 
-/* Таймер */
-TileWidget QLabel#timerLabel {
-    color: #64FF64;
-    font-family: Consolas;
-    font-size: 24px;
+QPushButton:pressed {
+    background-color: #555555;
 }
 
-/* ==================== SCROLLBAR (если понадобится) ==================== */
+QPushButton:disabled {
+    background-color: #2d2d2d;
+    color: #555555;
+    border-color: #333333;
+}
+
+/* Основная кнопка действия (синяя) */
+QPushButton#primaryButton {
+    background-color: #6496FF;
+    color: white;
+    border: none;
+}
+
+QPushButton#primaryButton:hover {
+    background-color: #7aa6ff;
+}
+
+QPushButton#primaryButton:pressed {
+    background-color: #4d85ff;
+}
+
+/* Кнопка успеха (зелёная) */
+QPushButton#successButton {
+    background-color: #64FF64;
+    color: #1a1a1a;
+    border: none;
+}
+
+QPushButton#successButton:hover {
+    background-color: #7aff7a;
+}
+
+/* Кнопка опасности (красная) */
+QPushButton#dangerButton {
+    background-color: #FF6464;
+    color: white;
+    border: none;
+}
+
+QPushButton#dangerButton:hover {
+    background-color: #ff7a7a;
+}
+
+/* Кнопка навигации (стрелки) */
+QPushButton#navButton {
+    min-width: 32px;
+    min-height: 32px;
+    padding: 4px;
+    font-size: 14px;
+}
+
+/* Выпадающие списки */
+QComboBox {
+    background-color: #2d2d2d;
+    color: #eeeeee;
+    border: 1px solid #444444;
+    border-radius: 6px;
+    padding: 6px 10px;
+    min-width: 100px;
+}
+
+QComboBox:hover {
+    border-color: #555555;
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 24px;
+}
+
+QComboBox::down-arrow {
+    image: none;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #eeeeee;
+    margin-right: 8px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #2d2d2d;
+    color: #eeeeee;
+    border: 1px solid #444444;
+    selection-background-color: #6496FF;
+    selection-color: white;
+    outline: none;
+}
+
+/* Списки */
+QListWidget {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+QListWidget::item {
+    background-color: #2d2d2d;
+    border: 1px solid #444444;
+    border-radius: 6px;
+    padding: 8px;
+    margin: 2px 4px;
+    min-height: 36px;
+}
+
+QListWidget::item:selected {
+    background-color: #3d3d3d;
+    border: 2px solid #6496FF;
+}
+
+QListWidget::item:hover {
+    background-color: #353535;
+    border-color: #555555;
+}
+
+/* Полосы прокрутки */
 QScrollBar:vertical {
     background-color: #2d2d2d;
-    width: 12px;
-    border-radius: 6px;
+    width: 8px;
+    border-radius: 4px;
 }
 
 QScrollBar::handle:vertical {
     background-color: #555555;
-    border-radius: 6px;
+    border-radius: 4px;
     min-height: 30px;
 }
 
@@ -144,13 +259,13 @@ QScrollBar::sub-line:vertical {
 
 QScrollBar:horizontal {
     background-color: #2d2d2d;
-    height: 12px;
-    border-radius: 6px;
+    height: 8px;
+    border-radius: 4px;
 }
 
 QScrollBar::handle:horizontal {
     background-color: #555555;
-    border-radius: 6px;
+    border-radius: 4px;
     min-width: 30px;
 }
 
@@ -163,13 +278,12 @@ QScrollBar::sub-line:horizontal {
     width: 0px;
 }
 
-/* ==================== TOOLTIP ==================== */
+/* Подсказки */
 QToolTip {
     background-color: #3d3d3d;
     color: #eeeeee;
     border: 1px solid #555555;
     padding: 4px 8px;
     border-radius: 4px;
-    font-family: Segoe UI;
     font-size: 11px;
 }

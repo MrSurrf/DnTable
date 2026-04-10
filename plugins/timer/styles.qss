@@ -1,0 +1,26 @@
+/* ============================================
+   Стили для плагина "Таймер"
+   ============================================ */
+
+/* Дисплей таймера */
+PluginWidget QLabel#display {
+    font-family: Consolas;
+    font-size: 28px;
+    color: #64FF64;
+    background-color: #0d1f0d;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+PluginWidget QLabel#display[running="true"] {
+    background-color: #1a3d1a;
+}
+
+/* Кнопки управления */
+PluginWidget QPushButton#startBtn,
+PluginWidget QPushButton#resetBtn {
+    min-width: 40px;
+    min-height: 28px;
+    padding: 4px;
+    font-size: 14px;
+}

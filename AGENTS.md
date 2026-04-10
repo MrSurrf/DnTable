@@ -167,12 +167,97 @@ cp -r plugins/example_plugin/ plugins/my_awesome_plugin/
 4. (Optional) Create `styles.qss` for custom styling
 5. Restart application - plugin loads automatically
 
+### Plugin Styling Guide
+
+**ВАЖНО:** Все стили плагина должны быть в файле `plugins/{plugin_name}/styles.qss`!
+
+**НЕ используйте инлайн-стили в widget.py!** (метод `setStyleSheet()` в коде)
+
+**Правильный подход:**
+
+1. В `widget.py` назначайте виджетам `setObjectName()`:
+```python
+self.my_button = QPushButton("Click")
+self.my_button.setObjectName("my_button")  # Для стилизации через QSS
+```
+
+2. В `styles.qss` определяйте стили:
+```css
+/* plugins/my_plugin/styles.qss */
+PluginWidget QPushButton#my_button {
+    background-color: #6496FF;
+    color: white;
+}
+
+PluginWidget QPushButton#my_button:hover {
+    background-color: #7aa6ff;
+}
+```
+
+3. Используйте готовые классы из глобального styles.qss:
+   - `QPushButton#primaryButton` — синяя кнопка действия
+   - `QPushButton#successButton` — зелёная кнопка (успех)
+   - `QPushButton#dangerButton` — красная кнопка (опасность/удаление)
+   - `QPushButton#navButton` — кнопка навигации (стрелки)
+
+**Пример хорошего кода:**
+```python
+def _setup_ui(self):
+    layout = QVBoxLayout(self)
+    
+    # Назначаем objectName для стилизации через QSS
+    self.title = QLabel("Заголовок")
+    self.title.setObjectName("title_label")
+    layout.addWidget(self.title)
+    
+    # Используем глобальный класс для кнопки
+    self.save_btn = QPushButton("Сохранить")
+    self.save_btn.setObjectName("primaryButton")
+    layout.addWidget(self.save_btn)
+```
+
 ### Plugin Template
 
 Смотрите полный рабочий пример в `plugins/example_plugin/`:
 - `config.py` — документированный шаблон конфигурации
 - `widget.py` — пример структуры виджета с комментариями
 - `styles.qss` — пример стилей
+
+### Existing Plugins (Reference)
+
+Все существующие плагины следуют принципу разделения стилей:
+
+```
+plugins/
+├── dice_roller/
+│   ├── config.py
+│   ├── widget.py      # Без инлайн-стилей!
+│   └── styles.qss     # Все стили здесь
+├── effects/
+│   ├── config.py
+│   ├── widget.py
+│   └── styles.qss
+├── map/
+│   ├── config.py
+│   ├── widget.py
+│   └── styles.qss
+├── music/
+│   ├── config.py
+│   ├── widget.py
+│   └── styles.qss
+├── notes/
+│   ├── config.py
+│   ├── widget.py
+│   └── styles.qss
+├── timer/
+│   ├── config.py
+│   ├── widget.py
+│   └── styles.qss
+└── example_plugin/     # Шаблон для копирования
+    ├── config.py
+    ├── widget.py
+    └── styles.qss
+```
 
 ### Disabling a Plugin
 

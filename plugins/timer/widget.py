@@ -19,26 +19,21 @@ class PluginWidget(QWidget):
         
         # Дисплей
         self.display = QLabel("00:00:00")
+        self.display.setObjectName("display")
         self.display.setAlignment(Qt.AlignCenter)
-        self.display.setStyleSheet("""
-            font-family: Consolas;
-            font-size: 28px;
-            color: #64FF64;
-            background-color: #0d1f0d;
-            border-radius: 6px;
-            padding: 4px;
-        """)
         layout.addWidget(self.display)
         
         # Кнопки
         buttons = QHBoxLayout()
         
         self.start_btn = QPushButton("▶")
+        self.start_btn.setObjectName("startBtn")
         self.start_btn.setFixedSize(40, 28)
         self.start_btn.clicked.connect(self._toggle)
         buttons.addWidget(self.start_btn)
         
         self.reset_btn = QPushButton("↺")
+        self.reset_btn.setObjectName("resetBtn")
         self.reset_btn.setFixedSize(40, 28)
         self.reset_btn.clicked.connect(self._reset)
         buttons.addWidget(self.reset_btn)
@@ -54,25 +49,16 @@ class PluginWidget(QWidget):
         if self.running:
             self.timer.stop()
             self.start_btn.setText("▶")
-            self.display.setStyleSheet("""
-                font-family: Consolas;
-                font-size: 28px;
-                color: #64FF64;
-                background-color: #0d1f0d;
-                border-radius: 6px;
-                padding: 4px;
-            """)
+            self.display.setProperty("running", "false")
         else:
             self.timer.start()
             self.start_btn.setText("⏸")
-            self.display.setStyleSheet("""
-                font-family: Consolas;
-                font-size: 28px;
-                color: #64FF64;
-                background-color: #1a3d1a;
-                border-radius: 6px;
-                padding: 4px;
-            """)
+            self.display.setProperty("running", "true")
+        
+        # Обновляем стиль для применения QSS
+        self.display.style().unpolish(self.display)
+        self.display.style().polish(self.display)
+        
         self.running = not self.running
     
     def _reset(self):
@@ -80,6 +66,9 @@ class PluginWidget(QWidget):
         self.running = False
         self.seconds = 0
         self.start_btn.setText("▶")
+        self.display.setProperty("running", "false")
+        self.display.style().unpolish(self.display)
+        self.display.style().polish(self.display)
         self._update_display()
     
     def _tick(self):

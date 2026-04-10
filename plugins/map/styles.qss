@@ -1,18 +1,73 @@
-/* Стили для плагина Карта */
+/* ============================================
+   Стили для плагина "Карта"
+   ============================================ */
 
-PluginWidget QPushButton {
-    background-color: #3d3d3d;
-    border: 1px solid #555;
-    border-radius: 4px;
+/* Виджет предпросмотра */
+MapPreviewWidget {
+    background-color: #1a1a1a;
+    border: 2px solid #444;
+    border-radius: 8px;
+}
+
+/* Заголовок карты */
+MapPreviewWidget QLabel#title_label {
+    font-weight: bold;
     color: #eee;
+    font-size: 12px;
+}
+
+/* Область изображения */
+MapPreviewWidget QLabel#image_label {
+    background-color: #252525;
+    border: 2px dashed #555;
+    border-radius: 8px;
+    color: #666;
+}
+
+MapPreviewWidget QLabel#image_label[hasImage="true"] {
+    background-color: #1a1a1a;
+    border: none;
+}
+
+/* Инфо о размере */
+MapPreviewWidget QLabel#info_label {
+    color: #888;
+    font-size: 10px;
+}
+
+/* Кнопки навигации */
+PluginWidget QPushButton#navButton {
+    min-width: 32px;
+    min-height: 32px;
+    padding: 4px;
     font-size: 14px;
 }
 
-PluginWidget QPushButton:hover {
-    background-color: #4d4d4d;
-    border-color: #666;
+/* Заголовок списка */
+PluginWidget QLabel#list_header {
+    font-weight: bold;
+    color: #6496FF;
+    font-size: 11px;
 }
 
-PluginWidget QPushButton:pressed {
-    background-color: #2d2d2d;
+/* Список карт */
+PluginWidget QLabel#maps_list {
+    color: #aaa;
+    font-size: 10px;
+    background-color: #252525;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+/* Подпись "Доступные карты" */
+PluginWidget QLabel#maps_list_label {
+    color: #888;
+    font-size: 10px;
+    margin-top: 8px;
+}
+
+/* Инфо о папке */
+PluginWidget QLabel#folder_info {
+    color: #666;
+    font-size: 9px;
 }

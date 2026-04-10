@@ -1,0 +1,126 @@
+/* ============================================
+   Стили для плагина "Dice Roller"
+   ============================================ */
+
+/* Фрейм с кнопками кубиков */
+PluginWidget QFrame#diceButtonsFrame {
+    background-color: #252525;
+    border-radius: 8px;
+}
+
+/* Кнопка очистки пула */
+PluginWidget QPushButton#clearPoolBtn {
+    background-color: #FF646433;
+    color: #FF6464;
+    border: 2px solid #FF6464;
+    border-radius: 35px;
+    font-size: 24px;
+    min-width: 70px;
+    min-height: 70px;
+    padding: 6px;
+}
+
+PluginWidget QPushButton#clearPoolBtn:hover {
+    background-color: #FF646466;
+}
+
+/* Инфо о пуле */
+PluginWidget QLabel#poolInfo {
+    color: #888;
+    font-size: 11px;
+}
+
+PluginWidget QLabel#poolInfo[hasItems="true"] {
+    color: #6496FF;
+    font-weight: bold;
+}
+
+/* Область пула */
+PluginWidget QScrollArea#poolScroll {
+    background-color: #1a1a1a;
+    border: 2px dashed #444;
+    border-radius: 8px;
+}
+
+/* Подсказка */
+PluginWidget QLabel#hint {
+    color: #666;
+    font-size: 9px;
+}
+
+/* Результат */
+PluginWidget QLabel#totalLabel {
+    font-size: 24px;
+    font-weight: bold;
+    color: #64FF64;
+    background-color: #1a2f1a;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+/* Кнопка броска */
+PluginWidget QPushButton#rollBtn {
+    min-height: 50px;
+    font-size: 16px;
+}
+
+PluginWidget QPushButton#rollBtn:enabled {
+    background-color: #6496FF;
+    color: white;
+}
+
+PluginWidget QPushButton#rollBtn:enabled:hover {
+    background-color: #7aa6ff;
+}
+
+/* Заголовок */
+PluginWidget QLabel#header {
+    font-weight: bold;
+    color: #eee;
+    font-size: 14px;
+}
+
+/* ==================== DicePoolItem ==================== */
+DicePoolItem {
+    background-color: #3d3d3d33;
+    border: 2px solid #555;
+    border-radius: 8px;
+}
+
+DicePoolItem QLabel#typeLabel {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+DicePoolItem QLabel#resultLabel {
+    font-size: 18px;
+    font-weight: bold;
+    color: #eee;
+    background-color: #1a1a1a;
+    border-radius: 4px;
+}
+
+/* ==================== DiceRollOverlay ==================== */
+DiceRollOverlay {
+    background-color: rgba(0, 0, 0, 180);
+}
+
+DiceRollOverlay QLabel#overlayTitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #64FF64;
+    background: transparent;
+}
+
+DiceRollOverlay QLabel#overlayResult {
+    font-size: 36px;
+    font-weight: bold;
+    color: #FFFF64;
+    background: transparent;
+}
+
+DiceRollOverlay QLabel#overlayHint {
+    color: #888;
+    font-size: 10px;
+    background: transparent;
+}
