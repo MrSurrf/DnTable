@@ -1,0 +1,175 @@
+/* ============================================
+   Стили для Tile Dashboard
+   Можно редактировать без изменения кода Python
+   ============================================ */
+
+/* ==================== ГЛОВАЛЬНЫЕ ==================== */
+QMainWindow {
+    background-color: #1a1a1a;
+}
+
+/* ==================== МЕНЮ ==================== */
+QMenuBar {
+    background-color: #2d2d2d;
+    color: #eeeeee;
+    padding: 4px;
+    font-family: Segoe UI;
+    font-size: 12px;
+}
+
+QMenuBar::item {
+    background-color: transparent;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+QMenuBar::item:selected {
+    background-color: #444444;
+}
+
+QMenuBar::item:pressed {
+    background-color: #555555;
+}
+
+QMenu {
+    background-color: #2d2d2d;
+    color: #eeeeee;
+    border: 1px solid #444444;
+    padding: 4px;
+    font-family: Segoe UI;
+    font-size: 11px;
+}
+
+QMenu::item {
+    padding: 6px 24px;
+    border-radius: 4px;
+}
+
+QMenu::item:selected {
+    background-color: #444444;
+}
+
+QMenu::separator {
+    height: 1px;
+    background-color: #444444;
+    margin: 4px 8px;
+}
+
+/* ==================== TILE WIDGET ==================== */
+TileWidget {
+    background-color: #2d2d2d;
+    border-radius: 12px;
+    border: 1px solid #444444;
+}
+
+TileWidget:hover {
+    border: 1px solid #666666;
+}
+
+/* Заголовок виджета */
+TileWidget QFrame#header {
+    background-color: #3d3d3d;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 1px solid #555555;
+}
+
+/* Заголовок - текст */
+TileWidget QLabel#titleLabel {
+    color: #eeeeee;
+    font-family: Segoe UI;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Кнопка закрыть */
+TileWidget QLabel#closeBtn {
+    font-size: 16px;
+    font-weight: bold;
+    color: #666666;
+    padding: 0 4px;
+}
+
+TileWidget QLabel#closeBtn:hover {
+    color: #FF6464;
+}
+
+/* Контент виджета */
+TileWidget QLabel#contentLabel {
+    color: #aaaaaa;
+    font-family: Segoe UI;
+    font-size: 11px;
+}
+
+/* Иконка в виджете */
+TileWidget QLabel#iconLabel {
+    color: #eeeeee;
+}
+
+/* Подзаголовок */
+TileWidget QLabel#subtitleLabel {
+    color: #6496FF;
+    font-family: Segoe UI;
+    font-size: 12px;
+}
+
+/* Таймер */
+TileWidget QLabel#timerLabel {
+    color: #64FF64;
+    font-family: Consolas;
+    font-size: 24px;
+}
+
+/* ==================== SCROLLBAR (если понадобится) ==================== */
+QScrollBar:vertical {
+    background-color: #2d2d2d;
+    width: 12px;
+    border-radius: 6px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #555555;
+    border-radius: 6px;
+    min-height: 30px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: #666666;
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QScrollBar:horizontal {
+    background-color: #2d2d2d;
+    height: 12px;
+    border-radius: 6px;
+}
+
+QScrollBar::handle:horizontal {
+    background-color: #555555;
+    border-radius: 6px;
+    min-width: 30px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background-color: #666666;
+}
+
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+    width: 0px;
+}
+
+/* ==================== TOOLTIP ==================== */
+QToolTip {
+    background-color: #3d3d3d;
+    color: #eeeeee;
+    border: 1px solid #555555;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: Segoe UI;
+    font-size: 11px;
+}

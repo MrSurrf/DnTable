@@ -1,0 +1,18 @@
+/* Стили для плагина Карта */
+
+PluginWidget QPushButton {
+    background-color: #3d3d3d;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: #eee;
+    font-size: 14px;
+}
+
+PluginWidget QPushButton:hover {
+    background-color: #4d4d4d;
+    border-color: #666;
+}
+
+PluginWidget QPushButton:pressed {
+    background-color: #2d2d2d;
+}
